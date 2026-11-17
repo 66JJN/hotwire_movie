@@ -28,6 +28,8 @@ services:
     environment:
       BINDING: 0.0.0.0
       DATABASE_URL: postgres://postgres@db:5432
+      # Port 3000 is bound to 127.0.0.1 only, so these private ranges are just the Docker host gateway.
+      WEB_CONSOLE_ALLOWED_IPS: 172.16.0.0/12,192.168.0.0/16
     volumes:
       - .:/rails
       - bundle:/usr/local/bundle
