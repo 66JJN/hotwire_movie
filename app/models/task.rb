@@ -4,7 +4,7 @@ class Task < ApplicationRecord
   # overdue is set by RefreshOverdueTasksJob once due_date has passed (Step 10).
   enum :status, { todo: 0, doing: 1, done: 2, overdue: 3 }, default: :todo, validate: true
 
-  validates :title, presence: true, uniqueness: { case_sensitive: false }
+  validates :title, presence: true
   validates :due_date, presence: true
 
   # Live updates: every change tells pages subscribed to "tasks" to refresh (morph).
