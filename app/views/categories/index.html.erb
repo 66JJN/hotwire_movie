@@ -7,8 +7,23 @@
   <%= link_to "+ New category", new_category_path, class: "btn" %>
 </div>
 
-<div class="group">
+<div class="group" data-controller="category">
+
+  <button data-action="click->category#toggle "> Click </button>
+  
+  <div class="p-3 border" 
+  data-category-target="count" data-category-target-value="<%= @categories.to_json %>">
+    <%= @categories.count %>
+  </div>
+ 
   <ul id="categories" class="flex flex-col gap-3"><%= render @categories %></ul>
+
+  <%= turbo_stream_from "categories-count" %>
+
+  <div id="categories-count" class="flex items-baseline gap-2">
+    <%= render "categories/count", count: @categories.size %>
+  </div>
+
 
   <%# Hidden while the list has items (CSS :has()). %>
   <div class="border border-dashed px-4 py-12 text-center group-has-[li]:hidden">
