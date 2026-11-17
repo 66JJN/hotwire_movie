@@ -26,7 +26,7 @@
     @apply underline underline-offset-2 transition-colors hover:text-blue-600 hover:decoration-2;
   }
 
-  /* Task cards and category rows lift slightly on hover. */
+  /* Movie cards and category rows lift slightly on hover. */
   .card {
     @apply border bg-white transition hover:-translate-y-0.5 hover:shadow-md;
   }

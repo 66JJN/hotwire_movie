@@ -1,0 +1,10 @@
+<% content_for :title, "Edit movie" %>
+
+<div class="mx-auto max-w-2xl">
+  <%= link_to "← Back to movies", movies_path, class: "text-sm text-link" %>
+  <h1 class="mt-2 mb-6 text-2xl font-semibold">Edit movie</h1>
+
+  <div class="border p-6">
+    <%= render "form", movie: @movie %>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<% content_for :title, "Movies" %>
+
+<%= turbo_stream_from "movies" %>
+
+<div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+  <h1 class="text-2xl font-semibold">Movies</h1>
+
+  <div class="flex items-center gap-3">
+    <%# Stimulus auto-submit: picking a category submits the form, no button needed. %>
+    <%= form_with url: movies_path, method: :get, class: "flex items-center gap-2",
+          data: { controller: "auto-submit" } do |form| %>
+      <%= form.label :category_id, "Category", class: "text-sm" %>
+      <%= form.select :category_id,
+            options_from_collection_for_select(@categories, :id, :name, params[:category_id]),
+            { include_blank: "All categories" },
+            class: "form-input w-auto", data: { action: "change->auto-submit#submit" } %>
+    <% end %>
+
+    <%= link_to "+ Add movie", new_movie_path, class: "btn" %>
+  </div>
+</div>
+
+<div class="grid gap-6 md:grid-cols-3">
+  <% MoviesHelper::BOARD_COLUMNS.each do |status| %>
+    <section aria-labelledby="column-<%= status %>" class="flex flex-col border p-3">
+      <h2 id="column-<%= status %>" class="mb-3 font-semibold"><%= status.humanize %></h2>
+
+      <div id="movies_<%= status %>" class="flex flex-col gap-3">
+        <%= render @movies.fetch(status, []) %>
+      </div>
+    </section>
+  <% end %>
+</div>

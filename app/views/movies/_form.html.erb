@@ -1,0 +1,50 @@
+<%= form_with model: movie, class: "space-y-5" do |form| %>
+  <% if movie.errors.any? %>
+    <div role="alert" class="border px-4 py-3 text-sm">
+      <p class="font-medium">Please fix <%= pluralize(movie.errors.count, "problem") %>:</p>
+      <ul class="mt-1 list-inside list-disc">
+        <% movie.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid gap-5 md:grid-cols-3">
+    <div class="md:col-span-2">
+      <%= form.label :title, class: "form-label" %>
+      <%= form.text_field :title, class: "form-input", autofocus: true %>
+    </div>
+
+    <div>
+      <%= form.label :year, class: "form-label" %>
+      <%= form.number_field :year, class: "form-input", placeholder: "2024" %>
+    </div>
+  </div>
+
+  <div>
+    <%= form.label :note, class: "form-label" %>
+    <%= form.text_area :note, rows: 3, class: "form-input", placeholder: "Why watch it, who recommended it…" %>
+  </div>
+
+  <div class="grid gap-5 md:grid-cols-2">
+    <div>
+      <%= form.label :category_id, "Category", class: "form-label" %>
+      <%= form.collection_select :category_id, @categories, :id, :name,
+            { prompt: "Select a category" }, class: "form-input" %>
+      <% if @categories.empty? %>
+        <p class="mt-1.5 text-xs">No categories yet. <%= link_to "Create one", new_category_path, class: "text-link" %> first.</p>
+      <% end %>
+    </div>
+
+    <div>
+      <%= form.label :status, class: "form-label" %>
+      <%= form.select :status, status_options, {}, class: "form-input" %>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-end gap-3 border-t pt-5">
+    <%= link_to "Cancel", movies_path, class: "btn" %>
+    <%= form.submit movie.new_record? ? "Add movie" : "Save changes", class: "btn" %>
+  </div>
+<% end %>

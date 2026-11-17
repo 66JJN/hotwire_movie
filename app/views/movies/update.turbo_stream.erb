@@ -1,0 +1,3 @@
+<%# Status changed: move the card to the top of its new column. %>
+<%= turbo_stream.remove dom_id(@movie) %>
+<%= turbo_stream.prepend "movies_#{@movie.status}", partial: "movies/movie", locals: { movie: @movie } %>

@@ -7,25 +7,11 @@
   <%= link_to "+ New category", new_category_path, class: "btn" %>
 </div>
 
-<div class="group" data-controller="category">
-
-  <button data-action="click->category#toggle "> Click </button>
-  
-  <div class="p-3 border" 
-  data-category-target="count" data-category-target-value="<%= @categories.to_json %>">
-    <%= @categories.count %>
-  </div>
- 
+<div class="group">
+  <%# Live updates: Category broadcasts append / replace / remove into this list. %>
   <ul id="categories" class="flex flex-col gap-3"><%= render @categories %></ul>
 
-  <%= turbo_stream_from "categories-count" %>
-
-  <div id="categories-count" class="flex items-baseline gap-2">
-    <%= render "categories/count", count: @categories.size %>
-  </div>
-
-
-  <%# Hidden while the list has items (CSS :has()). %>
+  <%# Hidden while the list has items, so it also comes back when the last one is removed live. %>
   <div class="border border-dashed px-4 py-12 text-center group-has-[li]:hidden">
     <p class="text-sm">No categories yet.</p>
     <%= link_to "Create your first category", new_category_path, class: "btn mt-3" %>
