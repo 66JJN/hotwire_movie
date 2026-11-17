@@ -1,17 +1,19 @@
 <% content_for :title, "Tasks" %>
 
+<%= turbo_stream_from "tasks" %>
+
 <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
   <h1 class="text-2xl font-semibold">Tasks</h1>
 
   <div class="flex items-center gap-3">
-    <%# Step 8: replace the Filter button with a Stimulus auto-submit controller. %>
-    <%= form_with url: tasks_path, method: :get, class: "flex items-center gap-2" do |form| %>
+    <%# Stimulus auto-submit: picking a category submits the form, no button needed. %>
+    <%= form_with url: tasks_path, method: :get, class: "flex items-center gap-2",
+          data: { controller: "auto-submit" } do |form| %>
       <%= form.label :category_id, "Category", class: "text-sm" %>
       <%= form.select :category_id,
             options_from_collection_for_select(@categories, :id, :name, params[:category_id]),
             { include_blank: "All categories" },
-            class: "form-input w-auto" %>
-      <%= form.submit "Filter", name: nil, class: "btn" %>
+            class: "form-input w-auto", data: { action: "change->auto-submit#submit" } %>
     <% end %>
 
     <%= link_to "+ New task", new_task_path, class: "btn" %>

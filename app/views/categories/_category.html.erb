@@ -1,4 +1,4 @@
-<li id="<%= dom_id(category) %>" class="flex items-center justify-between gap-4 border px-4 py-3">
+<li id="<%= dom_id(category) %>" class="card flex items-center justify-between gap-4 px-4 py-3">
   <div class="flex min-w-0 items-center gap-3">
     <span class="size-4 shrink-0 border" style="background-color: <%= category.color %>"></span>
     <div class="min-w-0">
@@ -8,10 +8,10 @@
   </div>
 
   <div class="flex shrink-0 items-center gap-1">
-    <%= link_to "Edit", edit_category_path(category), class: "border px-2 py-1 text-xs" %>
+    <%= link_to "Edit", edit_category_path(category), class: "btn-sm py-1" %>
     <%= button_to "Delete", category_path(category),
           method: :delete,
           form: { data: { turbo_confirm: category_delete_confirmation(category) } },
-          class: "cursor-pointer border px-2 py-1 text-xs" %>
+          class: "btn-sm btn-danger py-1" %>
   </div>
 </li>

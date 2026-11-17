@@ -1,8 +1,34 @@
 @import "tailwindcss";
 
 @layer components {
+  /* Buttons and button-like links. Hover darkens the background so it's clear what's clickable. */
   .btn {
-    @apply inline-flex cursor-pointer items-center gap-1 border px-3 py-1.5 text-sm;
+    @apply inline-flex cursor-pointer items-center gap-1 border px-3 py-1.5 text-sm transition-colors
+      hover:bg-gray-900 hover:text-white active:bg-gray-700;
+  }
+
+  .btn-sm {
+    @apply inline-flex cursor-pointer items-center justify-center border px-2 py-0.5 text-xs transition-colors
+      hover:bg-gray-900 hover:text-white active:bg-gray-700;
+  }
+
+  /* Destructive actions turn red on hover. */
+  .btn-danger {
+    @apply hover:border-red-600 hover:bg-red-600 hover:text-white active:bg-red-700;
+  }
+
+  /* Top navigation; aria-current marks the page you're on. */
+  .nav-link {
+    @apply border px-3 py-2 transition-colors hover:bg-gray-100 aria-[current=page]:bg-gray-900 aria-[current=page]:text-white;
+  }
+
+  .text-link {
+    @apply underline underline-offset-2 transition-colors hover:text-blue-600 hover:decoration-2;
+  }
+
+  /* Task cards and category rows lift slightly on hover. */
+  .card {
+    @apply border bg-white transition hover:-translate-y-0.5 hover:shadow-md;
   }
 
   .form-label {
@@ -10,7 +36,7 @@
   }
 
   .form-input {
-    @apply block w-full border px-3 py-2 text-sm;
+    @apply block w-full border px-3 py-2 text-sm transition-colors hover:border-gray-500 focus:border-gray-900;
   }
 
   /* Rails wraps invalid fields in this div; keep layout intact. */

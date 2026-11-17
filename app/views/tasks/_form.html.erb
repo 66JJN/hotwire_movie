@@ -26,7 +26,7 @@
       <%= form.collection_select :category_id, @categories, :id, :name,
             { prompt: "Select a category" }, class: "form-input" %>
       <% if @categories.empty? %>
-        <p class="mt-1.5 text-xs">No categories yet. <%= link_to "Create one", new_category_path, class: "underline" %> first.</p>
+        <p class="mt-1.5 text-xs">No categories yet. <%= link_to "Create one", new_category_path, class: "text-link" %> first.</p>
       <% end %>
     </div>
 

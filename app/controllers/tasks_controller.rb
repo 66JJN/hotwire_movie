@@ -22,20 +22,25 @@ class TasksController < ApplicationController
     end
   end
 
-  # Used by both the edit page and the status button on each card.
-  # Step 7: answer the card's button with a Turbo Stream instead of a redirect.
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: "Task updated."
+      respond_to do |format|
+        # From a card on the board (status button): update just that card.
+        # From the full edit page: a normal redirect.
+        format.turbo_stream if turbo_frame_request?
+        format.html { redirect_to tasks_path, notice: "Task updated." }
+      end
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  # Step 7: answer with a Turbo Stream that removes just this card.
   def destroy
     @task.destroy!
-    redirect_to tasks_path, notice: "Task deleted.", status: :see_other
+    respond_to do |format|
+      format.turbo_stream # destroy.turbo_stream.erb: remove just this card
+      format.html { redirect_to tasks_path, notice: "Task deleted.", status: :see_other }
+    end
   end
 
   private

@@ -7,6 +7,11 @@ class Task < ApplicationRecord
   validates :title, presence: true, uniqueness: { case_sensitive: false }
   validates :due_date, presence: true
 
+  # Live updates: every change tells pages subscribed to "tasks" to refresh (morph).
+  after_create_commit  -> { broadcast_refresh_later_to "tasks" }
+  after_update_commit  -> { broadcast_refresh_later_to "tasks" }
+  after_destroy_commit -> { broadcast_refresh_to "tasks" }
+
   # Earliest due date first.
   scope :board_order, -> { order(:due_date, :created_at) }
 
