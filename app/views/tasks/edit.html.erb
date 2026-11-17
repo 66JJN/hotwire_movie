@@ -1,0 +1,10 @@
+<% content_for :title, "Edit task" %>
+
+<div class="mx-auto max-w-2xl">
+  <%= link_to "← Back to tasks", tasks_path, class: "text-sm underline" %>
+  <h1 class="mt-2 mb-6 text-2xl font-semibold">Edit task</h1>
+
+  <div class="border p-6">
+    <%= render "form", task: @task %>
+  </div>
+</div>

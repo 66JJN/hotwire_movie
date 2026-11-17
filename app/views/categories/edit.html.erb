@@ -1,0 +1,10 @@
+<% content_for :title, "Edit category" %>
+
+<div class="mx-auto max-w-2xl">
+  <%= link_to "← Back to categories", categories_path, class: "text-sm underline" %>
+  <h1 class="mt-2 mb-6 text-2xl font-semibold">Edit category</h1>
+
+  <div class="border p-6">
+    <%= render "form", category: @category %>
+  </div>
+</div>

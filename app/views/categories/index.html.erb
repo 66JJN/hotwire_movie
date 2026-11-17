@@ -1,0 +1,16 @@
+<% content_for :title, "Categories" %>
+
+<div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+  <h1 class="text-2xl font-semibold">Categories</h1>
+  <%= link_to "+ New category", new_category_path, class: "btn" %>
+</div>
+
+<div class="group">
+  <ul id="categories" class="flex flex-col gap-3"><%= render @categories %></ul>
+
+  <%# Hidden while the list has items (CSS :has()). %>
+  <div class="border border-dashed px-4 py-12 text-center group-has-[li]:hidden">
+    <p class="text-sm">No categories yet.</p>
+    <%= link_to "Create your first category", new_category_path, class: "btn mt-3" %>
+  </div>
+</div>

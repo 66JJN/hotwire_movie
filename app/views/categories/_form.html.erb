@@ -1,0 +1,27 @@
+<%= form_with model: category, class: "space-y-5" do |form| %>
+  <% if category.errors.any? %>
+    <div role="alert" class="border px-4 py-3 text-sm">
+      <p class="font-medium">Please fix <%= pluralize(category.errors.count, "problem") %>:</p>
+      <ul class="mt-1 list-inside list-disc">
+        <% category.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-input", autofocus: true %>
+  </div>
+
+  <div>
+    <%= form.label :color, class: "form-label" %>
+    <%= form.color_field :color, class: "h-10 w-14 cursor-pointer border p-1" %>
+  </div>
+
+  <div class="flex items-center justify-end gap-3 border-t pt-5">
+    <%= link_to "Cancel", categories_path, class: "btn" %>
+    <%= form.submit category.new_record? ? "Create category" : "Save changes", class: "btn" %>
+  </div>
+<% end %>

@@ -1,0 +1,48 @@
+<%= form_with model: task, class: "space-y-5" do |form| %>
+  <% if task.errors.any? %>
+    <div role="alert" class="border px-4 py-3 text-sm">
+      <p class="font-medium">Please fix <%= pluralize(task.errors.count, "problem") %>:</p>
+      <ul class="mt-1 list-inside list-disc">
+        <% task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-input", autofocus: true %>
+  </div>
+
+  <div>
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, rows: 4, class: "form-input" %>
+  </div>
+
+  <div class="grid gap-5 md:grid-cols-2">
+    <div>
+      <%= form.label :category_id, "Category", class: "form-label" %>
+      <%= form.collection_select :category_id, @categories, :id, :name,
+            { prompt: "Select a category" }, class: "form-input" %>
+      <% if @categories.empty? %>
+        <p class="mt-1.5 text-xs">No categories yet. <%= link_to "Create one", new_category_path, class: "underline" %> first.</p>
+      <% end %>
+    </div>
+
+    <div>
+      <%= form.label :due_date, class: "form-label" %>
+      <%= form.datetime_field :due_date, class: "form-input" %>
+    </div>
+  </div>
+
+  <div>
+    <%= form.label :status, class: "form-label" %>
+    <%= form.select :status, status_options, {}, class: "form-input" %>
+  </div>
+
+  <div class="flex items-center justify-end gap-3 border-t pt-5">
+    <%= link_to "Cancel", tasks_path, class: "btn" %>
+    <%= form.submit task.new_record? ? "Create task" : "Save changes", class: "btn" %>
+  </div>
+<% end %>
