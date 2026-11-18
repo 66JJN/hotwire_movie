@@ -29,19 +29,29 @@ test:
   url: <%= ENV["DATABASE_URL"] %>
   database: hotwire_test
 
+<%
+  # Production: one Postgres instance (Render's free plan allows one) holds four databases.
+  # cache / queue / cable are named after the primary one, e.g. movies -> movies_queue;
+  # db:prepare creates them. Set CACHE_/QUEUE_/CABLE_DATABASE_URL to point elsewhere.
+  database_url_with_suffix = ->(suffix) do
+    uri = URI.parse(ENV["DATABASE_URL"].to_s)
+    uri.path = "#{uri.path}#{suffix}" if uri.path.to_s.length > 1 # only when the URL names a database
+    uri.to_s.presence
+  end
+%>
 production:
   primary:
     <<: *default
     url: <%= ENV["DATABASE_URL"] %>
   cache:
     <<: *default
-    url: <%= ENV["CACHE_DATABASE_URL"] %>
+    url: <%= ENV["CACHE_DATABASE_URL"].presence || database_url_with_suffix.("_cache") %>
     migrations_paths: db/cache_migrate
   queue:
     <<: *default
-    url: <%= ENV["QUEUE_DATABASE_URL"] %>
+    url: <%= ENV["QUEUE_DATABASE_URL"].presence || database_url_with_suffix.("_queue") %>
     migrations_paths: db/queue_migrate
   cable:
     <<: *default
-    url: <%= ENV["CABLE_DATABASE_URL"] %>
+    url: <%= ENV["CABLE_DATABASE_URL"].presence || database_url_with_suffix.("_cable") %>
     migrations_paths: db/cable_migrate
