@@ -1,7 +1,3 @@
-# Sample data for local testing only. Production (Render) starts empty:
-# db:prepare runs this file on the first deploy, so stop here outside development.
-return unless Rails.env.development?
-
 categories = [
   { name: "Action", color: "#ef4444" },
   { name: "Comedy", color: "#f59e0b" },
