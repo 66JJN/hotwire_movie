@@ -12,9 +12,9 @@ services:
     runtime: docker
     plan: free
     healthCheckPath: /up
-    # Puma directly (skip Thruster, which binds port 80). The entrypoint still runs
-    # db:prepare first: creates the 4 databases, loads schemas, seeds on first deploy.
-    dockerCommand: ./bin/rails server
+    # db:prepare (creates the 4 databases, loads schemas, seeds on first deploy),
+    # then Puma directly (skip Thruster, which binds port 80).
+    dockerCommand: ./bin/render-start
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -27,3 +27,7 @@ services:
         value: "true"
       - key: PORT
         value: "3000"
+      # One Puma process. Unset, Render's WEB_CONCURRENCY starts several forked
+      # workers, too much for the free 512 MB instance.
+      - key: WEB_CONCURRENCY
+        value: "0"

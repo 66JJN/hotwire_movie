@@ -1,0 +1,6 @@
+#!/bin/bash -e
+# Render start command (render.yaml dockerCommand).
+# Runs db:prepare itself: with a custom command, bin/docker-entrypoint does not see
+# "./bin/rails server" as its arguments, so it skips db:prepare.
+./bin/rails db:prepare
+exec ./bin/rails server
