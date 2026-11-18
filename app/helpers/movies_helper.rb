@@ -6,6 +6,10 @@ module MoviesHelper
     Movie.statuses.keys.map { |status| [ status.humanize, status ] }
   end
 
+  def priority_options
+    Movie.priorities.keys.map { |priority| [ priority.humanize, priority ] }
+  end
+
   def next_status_action(movie)
     NEXT_STATUS_ACTIONS.fetch(movie.next_status)
   end

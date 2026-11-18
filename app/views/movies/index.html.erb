@@ -7,12 +7,19 @@
 
   <div class="flex items-center gap-3">
     <%# Stimulus auto-submit: picking a category submits the form, no button needed. %>
-    <%= form_with url: movies_path, method: :get, class: "flex items-center gap-2",
+    <%= form_with url: movies_path, method: :get, class: "flex flex-wrap items-center gap-2",
           data: { controller: "auto-submit" } do |form| %>
       <%= form.label :category_id, "Category", class: "text-sm" %>
       <%= form.select :category_id,
             options_from_collection_for_select(@categories, :id, :name, params[:category_id]),
             { include_blank: "All categories" },
+            class: "form-input w-auto", data: { action: "change->auto-submit#submit" } %>
+
+      <%# Same Stimulus controller, second field: any change submits the whole form. %>
+      <%= form.label :priority, "Priority", class: "text-sm" %>
+      <%= form.select :priority,
+            options_for_select(priority_options, params[:priority]),
+            { include_blank: "All priorities" },
             class: "form-input w-auto", data: { action: "change->auto-submit#submit" } %>
     <% end %>
 

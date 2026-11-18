@@ -3,7 +3,11 @@ class MoviesController < ApplicationController
   before_action :set_categories, only: %i[index new edit create update]
 
   def index
-    @movies = Movie.includes(:category).in_category(params[:category_id]).board_order.group_by(&:status)
+    @movies = Movie.includes(:category)
+                   .in_category(params[:category_id])
+                   .with_priority(params[:priority])
+                   .board_order
+                   .group_by(&:status)
   end
 
   def new
@@ -54,6 +58,6 @@ class MoviesController < ApplicationController
   end
 
   def movie_params
-    params.require(:movie).permit(:title, :year, :note, :status, :category_id)
+    params.require(:movie).permit(:title, :year, :note, :status, :priority, :category_id)
   end
 end

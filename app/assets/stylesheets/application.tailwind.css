@@ -39,6 +39,20 @@
     @apply block w-full border px-3 py-2 text-sm transition-colors hover:border-gray-500 focus:border-gray-900;
   }
 
+  /* Priority badge on movie cards. */
+  .priority {
+    @apply border px-2 py-0.5 text-xs;
+  }
+  .priority-high {
+    @apply border-red-500 text-red-600;
+  }
+  .priority-medium {
+    @apply border-amber-500 text-amber-600;
+  }
+  .priority-low {
+    @apply border-gray-400 text-gray-500;
+  }
+
   /* Rails wraps invalid fields in this div; keep layout intact. */
   .field_with_errors {
     display: contents;

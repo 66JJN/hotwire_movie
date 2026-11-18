@@ -22,15 +22,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_17_091021) do
   end
 
   create_table "movies", force: :cascade do |t|
-    t.bigint "category_id", null: false
-    t.string "title", null: false
+    t.string "title"
     t.integer "year"
     t.text "note"
-    t.integer "status", default: 0, null: false
+    t.integer "status"
+    t.integer "priority"
+    t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_movies_on_category_id"
-    t.index ["status"], name: "index_movies_on_status"
   end
 
   add_foreign_key "movies", "categories"

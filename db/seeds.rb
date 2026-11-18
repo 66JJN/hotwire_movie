@@ -9,9 +9,9 @@ end
 
 # Sample movies, one per board column.
 [
-  { title: "Interstellar",   year: 2014, category: "Sci-Fi", status: :want_to_watch, note: "Friends say the docking scene is unreal." },
-  { title: "Mad Max: Fury Road", year: 2015, category: "Action", status: :watching, note: "Halfway through." },
-  { title: "The Grand Budapest Hotel", year: 2014, category: "Comedy", status: :watched, note: "Rewatch for the colours." }
+  { title: "Interstellar",   year: 2014, category: "Sci-Fi", status: :want_to_watch, priority: :high, note: "Friends say the docking scene is unreal." },
+  { title: "Mad Max: Fury Road", year: 2015, category: "Action", status: :watching, priority: :medium, note: "Halfway through." },
+  { title: "The Grand Budapest Hotel", year: 2014, category: "Comedy", status: :watched, priority: :low, note: "Rewatch for the colours." }
 ].each do |attrs|
   Movie.find_or_create_by!(title: attrs[:title]) do |movie|
     movie.assign_attributes(attrs.except(:title, :category).merge(category: categories.fetch(attrs[:category])))

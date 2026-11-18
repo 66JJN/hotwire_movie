@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Hotwire Movies" %></title>
+    <title><%= content_for(:title) || "Movie Watchlist" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Hotwire">
+    <meta name="application-name" content="Movie Watchlist">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -27,7 +27,7 @@
   <body class="min-h-screen">
     <header class="border-b">
       <div class="mx-auto flex max-w-6xl items-center gap-8 px-4 py-4">
-        <%= link_to "Hotwire Movies", root_path, class: "text-lg font-semibold transition-colors hover:text-blue-600" %>
+        <%= link_to "Movie Watchlist", root_path, class: "text-lg font-semibold transition-colors hover:text-blue-600" %>
         <nav class="flex items-center gap-1 text-sm">
           <%= link_to "Movies", movies_path, class: "nav-link", aria: { current: ("page" if controller_name == "movies") } %>
           <%= link_to "Categories", categories_path, class: "nav-link", aria: { current: ("page" if controller_name == "categories") } %>

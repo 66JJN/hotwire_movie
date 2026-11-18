@@ -1,15 +1,14 @@
 class CreateMovies < ActiveRecord::Migration[8.1]
   def change
     create_table :movies do |t|
-      t.references :category, null: false, foreign_key: true
-      t.string :title, null: false
+      t.string :title
       t.integer :year
       t.text :note
-      t.integer :status, null: false, default: 0
+      t.integer :status   # defaults live in the model: enum ..., default:
+      t.integer :priority
+      t.references :category, null: false, foreign_key: true
 
       t.timestamps
     end
-
-    add_index :movies, :status
   end
 end
